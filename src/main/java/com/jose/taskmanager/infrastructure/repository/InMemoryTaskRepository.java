@@ -3,10 +3,12 @@ package com.jose.taskmanager.infrastructure.repository;
 import com.jose.taskmanager.domain.Task;
 import com.jose.taskmanager.domain.TaskId;
 import com.jose.taskmanager.domain.TaskRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-public class InMemoryTaskRepositoryImpl implements TaskRepository {
+@Repository
+public class InMemoryTaskRepository implements TaskRepository {
     private final Map<TaskId, Task> storage = new HashMap<TaskId, Task>();
 
     @Override
