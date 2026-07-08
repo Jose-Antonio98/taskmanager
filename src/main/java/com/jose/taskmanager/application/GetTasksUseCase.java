@@ -16,7 +16,7 @@ public class GetTasksUseCase {
         this.repository = repository;
     }
 
-    List <TaskOutput> execute() {
+    public List <TaskOutput> execute() {
         return repository.findAll().stream().map(TaskOutput::from).toList();
     }
 }
