@@ -1,8 +1,6 @@
 package com.jose.taskmanager.infrastructure.http;
 
 import com.jose.taskmanager.application.*;
-import com.jose.taskmanager.application.input.CreateTaskInput;
-import com.jose.taskmanager.application.output.TaskOutput;
 import com.jose.taskmanager.domain.TaskId;
 import com.jose.taskmanager.infrastructure.http.request.CreateTaskRequest;
 import com.jose.taskmanager.infrastructure.http.request.UpdateTaskRequest;
@@ -34,6 +32,7 @@ public class TaskController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     TaskResponse create(@RequestBody @Valid CreateTaskRequest request) {
         var input = request.toInput();
         var output = createTaskUseCase.execute(input);
@@ -54,12 +53,12 @@ public class TaskController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delete(@RequestParam UUID id) {
+    void delete(@PathVariable UUID id) {
         deleteTaskUseCase.execute(new TaskId(id));
 
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     TaskResponse update(@PathVariable UUID id, @RequestBody UpdateTaskRequest request) {
         var input = request.toInput();
         var output = updateTaskUseCase.execute(new TaskId(id), input);
